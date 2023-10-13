@@ -7,22 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
+
     use HasFactory;
+
     protected $fillable = [
         'First_name',
         'Last_name',
-        'email',
+        'Email',
         'password',
-        'phone',
-        'gender',
-        'date_of_birth',
+        'Phone',
+        'Gender',
+        'Date_of_birth',
         'linkedin',
         'img',
-        'role'
+        'Role',
+
     ];
+    protected $table = 'admins';
+
     public function answerTasks()
     {
         return $this->hasMany(AnswerTask::class, 'user_id', 'id');
     }
-    
 }

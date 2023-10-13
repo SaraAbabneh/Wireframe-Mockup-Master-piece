@@ -88,7 +88,7 @@
             <select name="position" class="form-control" id="position">
                 <option value="manager">Manager</option>
                 <option value="technical">Technical</option>
-                <option value="leader">Leader</option>
+                <option value="technical">Leader</option>
                 <option value="job">Job</option>
                 <option value="logistic">Logistic</option>
             </select>

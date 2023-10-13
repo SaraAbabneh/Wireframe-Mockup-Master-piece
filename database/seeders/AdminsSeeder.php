@@ -24,7 +24,7 @@ class AdminsSeeder extends Seeder
                 'Gender' => 'Male',
                 'Date_of_birth' => '1990-01-01',
                 'linkedin' => 'https://www.linkedin.com/in/johndoe',
-                'position' => 'Lead Trainer',
+                'position' => 'technical',
                 'Role' => 1, // Replace with the appropriate role value
             ],
             [
@@ -48,8 +48,8 @@ class AdminsSeeder extends Seeder
                 'Gender' => 'Female',
                 'Date_of_birth' => '1995-03-15',
                 'linkedin' => 'https://www.linkedin.com/in/sara-ababneh-8772b5200',
-                'position' => 'Coding Academy Manager',
-                'Role' => 3, // Replace with the appropriate role value
+                'position' => 'manager',
+                'Role' => 0, // Replace with the appropriate role value
             ],
             // Add more admin data as needed
         ];

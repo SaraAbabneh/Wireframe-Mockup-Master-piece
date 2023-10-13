@@ -39,6 +39,8 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        // dd('request',$request->First_name);
+
         Validator::extend('date_greater_than_today', function ($attribute, $value, $parameters, $validator) {
             $date = Carbon::parse($value);
             return $date->greaterThan(Carbon::now());
@@ -68,7 +70,6 @@ class AdminController extends Controller
             $role = 1;
         }
 
-        dd('request',$request);
 
         // Create the admin record with the role value
         $admin = Admin::create([
