@@ -53,7 +53,6 @@
                                             <th> Start at</th>
                                             <th> End at</th>
                                             <th> Number_students</th>
-
                                             <th>Number_full_stack</th>
                                             <th>Number_front_end</th>
                                             <th>Number_back_end</th>
