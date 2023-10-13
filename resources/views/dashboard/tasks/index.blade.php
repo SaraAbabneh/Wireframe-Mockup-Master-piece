@@ -36,7 +36,7 @@
                         @admin()
                             <div class="card-header">
                                 <!-- Add a link to create a new user -->
-                                <a class="btn btn-primary btn-sm float-left" href="{{ route('categories.create') }}">
+                                <a class="btn btn-primary btn-sm float-left" href="{{ route('tasks.create') }}">
                                     <i class="fas fa-th nav-icon"></i> Add New Task
                                 </a>
                             </div>

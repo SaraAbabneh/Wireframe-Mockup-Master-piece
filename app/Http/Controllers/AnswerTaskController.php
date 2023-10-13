@@ -18,7 +18,7 @@ class AnswerTaskController extends Controller
     {
         $Students = Student::get();
         $Answer = Answer_task::get();
-        return view('dashboard\answer-tasks\index', compact('Students', 'Answer'));
+        return view('dashboard.answer-tasks.index', compact('Students', 'Answer'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AnswerTaskController extends Controller
      */
     public function create()
     {
-        return view('dashboard\answer-tasks\create');
+        return view('dashboard.answer-tasks.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class AnswerTaskController extends Controller
         $data = $request->except(['_token', '_method']);
 
         Answer_task::where('id', $id)->update($data);
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('answer-tasks.index')->with('success', 'Category updated successfully.');
     }
 
     /**

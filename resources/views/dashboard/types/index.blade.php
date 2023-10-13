@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-header">
                   <!-- Add a link to create a new user -->
-                  <a class="btn btn-primary btn-sm float-left" href="{{ route('courses_type.create') }}">
+                  <a class="btn btn-primary btn-sm float-left" href="{{ route('types.create') }}">
                       <i class="fas fa-th nav-icon"></i> Add New Course
                   </a>
               </div>

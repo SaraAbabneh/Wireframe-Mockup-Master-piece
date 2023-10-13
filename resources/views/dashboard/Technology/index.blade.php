@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- Add a link to create a new user -->
-                            <a class="btn btn-primary btn-sm float-left" href="{{ route('technology.create') }}">
+                            <a class="btn btn-primary btn-sm float-left" href="{{ route('Technology.create') }}">
                                 <i class="fas fa-th nav-icon"></i> Add New Technology
                             </a>
                         </div>
@@ -68,7 +68,7 @@
                                                     <div style="margin-bottom: 5px; width: 100px;">
                                                         <!-- Adjust the width as needed -->
                                                         <a class="btn btn-info btn-sm"
-                                                            href="{{ route('technology.edit', $item->id) }}" style="width: 100%;">
+                                                            href="{{ route('Technology.edit', $item->id) }}" style="width: 100%;">
                                                             <i class="fas fa-pencil-alt"></i>
                                                             Edit
                                                         </a>
@@ -76,7 +76,7 @@
 
                                                     <div style="margin-bottom: 5px; width: 100px;">
                                                         <!-- Adjust the width as needed -->
-                                                        <form action="{{ route('technology.destroy', $item->id) }}" method="POST"
+                                                        <form action="{{ route('Technology.destroy', $item->id) }}" method="POST"
                                                             style="display: inline;">
                                                             @method('DELETE')
                                                             @csrf

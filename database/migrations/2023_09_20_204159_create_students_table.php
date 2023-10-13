@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
-
+            $table->bigIncrements('id'); 
             $table->string('First_name');
             $table->string('Last_name');
             $table->string('Email')->unique();
@@ -29,7 +28,8 @@ return new class extends Migration
             $table->string('github');
             $table->string('img')->default('frontend/img/default-profile-icon.jpg');
             $table->bigInteger('cohort_id')->unsigned();
-            $table->foreign('cohort_id')->references('number')->on('cohorts')->onDelete('Cascade');
+
+            $table->foreign('cohort_id')->references('number')->on('cohorts')->onDelete('cascade');
             
             $table->timestamps();
         });

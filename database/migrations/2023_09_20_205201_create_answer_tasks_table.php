@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('answer_tasks', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); 
             $table->bigInteger('user_id');
             $table->bigInteger('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('student_tasks');

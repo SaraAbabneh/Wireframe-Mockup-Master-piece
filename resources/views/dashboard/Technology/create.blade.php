@@ -18,7 +18,7 @@
     @section('content')
 
 
-        <form method="POST" style="width: 80%; margin: 50px auto;" action="{{ route('technology.store') }}" enctype="multipart/form-data">
+        <form method="POST" style="width: 80%; margin: 50px auto;" action="{{ route('Technology.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
 

@@ -37,7 +37,7 @@
                         @admin()
                             <div class="card-header">
                                 <!-- Add a link to create a new user -->
-                                <a class="btn btn-primary btn-sm float-left" href="{{ route('report.create') }}">
+                                <a class="btn btn-primary btn-sm float-left" href="{{ route('Report.create') }}">
                                     <i class="fas fa-th nav-icon"></i> Add New Report
                                 </a>
                             </div>

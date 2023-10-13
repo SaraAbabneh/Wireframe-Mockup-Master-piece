@@ -16,8 +16,8 @@ Route::resource('/dash/answer-tasks', AnswerTaskController::class);
 Route::resource('/dash/sources', SourceController::class);
 Route::resource('/dash/types', TypeController::class);
 Route::resource('/dash/tasks', TaskController::class);
-Route::resource('/dash/technologies', TechnologyController::class);
-Route::resource('/dash/reports', ReportController::class);
+Route::resource('/dash/Technology', TechnologyController::class);
+Route::resource('/dash/Report', ReportController::class);
 
 
 

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('to_do_lists', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); 
             $table->bigInteger('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
             $table->boolean('status');;

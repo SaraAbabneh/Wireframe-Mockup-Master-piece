@@ -15,7 +15,7 @@ class TypeController extends Controller
     public function index()
     {
         $Courses_type = Type::all();
-        return view('dashboard.type.index', compact('Courses_type'));
+        return view('dashboard.types.index', compact('Courses_type'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('dashboard.type.create');
+        return view('dashboard.types.create');
     }
 
     /**
@@ -55,7 +55,7 @@ class TypeController extends Controller
     {
         $Courses_type = Type::findOrFail($id);
 
-        return view('dashboard.type.edit', compact('Courses_type'));
+        return view('dashboard.types.edit', compact('Courses_type'));
     }
 
     /**

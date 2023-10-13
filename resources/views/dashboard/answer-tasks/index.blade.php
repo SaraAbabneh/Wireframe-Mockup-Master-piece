@@ -79,7 +79,7 @@
                                             @endif
 
                                             <td class="project-actions">
-                                                @student()
+                                                {{-- @student() --}}
                                                     <a class="btn btn-info btn-sm"
                                                         href="{{ route('answer.edit', $item->id) }}">
                                                         <i class="fas fa-pencil-alt"></i>

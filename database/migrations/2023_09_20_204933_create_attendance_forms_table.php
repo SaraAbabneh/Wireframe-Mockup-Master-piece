@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendance_forms', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); 
             $table->bigInteger('status_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('statuses');
-            $table->bigInteger('student_|id')->unsigned();
-            $table->foreign('student_|id')->references('id')->on('students');
             $table->dateTime('Request Date');
             $table->mediumText('File');
             $table->text('Comment');

@@ -14,8 +14,8 @@ class CreateCohortsTable extends Migration
     public function up()
     {
         Schema::create('cohorts', function (Blueprint $table) {
-            $table->id();
-            $table->integer('number')->unique();
+            $table->bigIncrements('id'); 
+            $table->bigInteger('number')->unique();
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('unmber_students');

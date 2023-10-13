@@ -21,7 +21,7 @@
             <h2>Edit Course_type Information</h2>
 
 
-            <form action="{{ route('courses_type.update', $Courses_type->id) }}" method="POST">
+            <form action="{{ route('types.update', $Courses_type->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 

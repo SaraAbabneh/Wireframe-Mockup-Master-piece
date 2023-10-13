@@ -20,7 +20,7 @@
         <h2>Edit Reports Information</h2>
 
 
-        <form action="{{ route('report.store', $Reports->id) }}" method="POST">
+        <form action="{{ route('Report.store', $Reports->id) }}" method="POST">
             @csrf
             @method('PUT')
 

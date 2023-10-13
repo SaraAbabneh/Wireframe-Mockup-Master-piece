@@ -21,7 +21,7 @@
             <h2>Edit Technology </h2>
 
 
-            <form action="{{ route('technology.update', $Map->id) }}" method="POST">
+            <form action="{{ route('Technology.update', $Map->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 

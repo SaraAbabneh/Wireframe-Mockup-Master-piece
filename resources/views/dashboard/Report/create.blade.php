@@ -21,7 +21,7 @@
 @section('content')
 
 
-    <form method="POST" style="width: 80%;margin: 50px auto" action="{{ route('report.store') }}">
+    <form method="POST" style="width: 80%;margin: 50px auto" action="{{ route('Report.store') }}">
 
         @csrf
         @method('post')

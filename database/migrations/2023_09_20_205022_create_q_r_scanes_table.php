@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('q_r_scanes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); 
             $table->bigInteger('QR-generate-id')->unsigned();
             $table->foreign('QR-generate-id')->references('id')->on('q_r_generates');
             $table->bigInteger('student-id')->unsigned();

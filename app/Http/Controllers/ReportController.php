@@ -70,7 +70,7 @@ class ReportController extends Controller
     public function edit($id)
     {
      
-        return view('dashboard.sources.edit', compact('Sources', 'Technologies'));
+        return view('dashboard.Report.edit', compact('Sources', 'Technologies'));
 
     }
 

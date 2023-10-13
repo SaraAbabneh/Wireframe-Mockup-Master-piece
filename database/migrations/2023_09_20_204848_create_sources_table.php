@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sources', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); 
             $table->bigInteger('Admin_id')->unsigned();
             $table->foreign('Admin_id')->references('id')->on('admins');
             $table->bigInteger('technology_id')->unsigned();
-            $table->foreign('technology_id')->references('id')->on('_technologies');
+            $table->foreign('technology_id')->references('id')->on('technologies');
             $table->string('Title');
             $table->mediumText('source 1');
             $table->mediumText('source 2');
