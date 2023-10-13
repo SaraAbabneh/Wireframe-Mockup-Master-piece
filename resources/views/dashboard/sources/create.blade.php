@@ -2,8 +2,9 @@
 
 @section('title', 'Create New Source')
 
-
 @section('css')
+    <link href="/node_modules/summernote/dist/summernote.css" rel="stylesheet">
+    <script src="/node_modules/summernote/dist/summernote.js"></script>
 @endsection
 
 @section('title_page1')
@@ -15,66 +16,53 @@
 @endsection
 
 @section('content')
-
-
-    <form method="POST" style="width: 80%;margin: 50px auto" action="{{ route('sources.store') }}">
-
+    <form method="POST" style="width: 80%; margin: 50px auto" action="{{ route('sources.store') }}">
         @csrf
-        @method('post')
+
         <input type="hidden" name="admin_id" value="{{ auth()->admin->id }}" />
-        {{-- sara --}}
 
         <div class="form-group">
-            <label for="Titel"> Source Titel:</label>
-            <input type="text" name="Titel" class="form-control" id="Titel" placeholder="Enter Source Titel">
+            <label for="Titel">Source Title:</label>
+            <input type="text" name="Titel" class="form-control" id="Titel" placeholder="Enter Source Title">
             @error('Titel')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
-
         </div>
-        
-        @foreach ($Technologies as $Technology)
-            <div class="form-group">
-                <label for="technology">Course Technology:</label>
-                <select name="technology_id" class="form-control" id="technology">
-                    <option value="{{ $item->id }}">{{ $item->Technology }}</option>
-                </select>
-            </div> {{-- sara --}}
-        @endforeach
+
+        <div class="form-group">
+            <label for="technology">Course Technology:</label>
+            <select name="technology_id" class="form-control" id="technology">
+                @foreach ($Technologies as $Technology)
+                    <option value="{{ $Technology->id }}">{{ $Technology->Technology }}</option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="source_1">Source_1:</label>
-            <input type="text" name="source_1" class="form-control" id="source_1" placeholder="Enter Task source_1">
+            <textarea name="source_1" class="form-control summernote" id="source_1" required></textarea>
             @error('source_1')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
-
-        </div>
-
-        <label for="source_2">Source_2:</label>
-        <input type="text" name="source_2" class="form-control" id="source_2" placeholder="Enter Task source_2">
-        @error('source_2')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-
         </div>
 
         <div class="form-group">
-            <select>
-                @foreach ($courses_type as $item)
-                    <option value="{{ $item->id }}"{{ $item->subject }}>
-                @endforeach
-            </select>
-
+            <label for="source_2">Source_2:</label>
+            <textarea name="source_2" class="form-control summernote" id="source_2" required></textarea>
+            @error('source_2')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <br>
         <input type="submit" value="Add Source" class="btn btn-success"><br>
     </form>
-
-
 @endsection
 
 @section('scripts')
-
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+    </script>
 @endsection

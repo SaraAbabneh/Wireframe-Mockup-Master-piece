@@ -16,9 +16,9 @@ class AnswerTaskController extends Controller
      */
     public function index()
     {
-        $Students=Student::get();
-        $Answer=Answer_task::get();
-        return view('dashboard\answer-tasks\index',compact('Students','Answer'));
+        $Students = Student::get();
+        $Answer = Answer_task::get();
+        return view('dashboard\answer-tasks\index', compact('Students', 'Answer'));
     }
 
     /**
@@ -37,7 +37,7 @@ class AnswerTaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request ,$id)
+    public function store(Request $request, $id)
     {
         $request->validate([
             'file' => ['required'],
@@ -46,15 +46,11 @@ class AnswerTaskController extends Controller
         ]);
 
         $Answer_task = new Answer_task();
+        $Answer_task->save();
 
-        $imagePath = $this->uploadImage($request, 'image', 'uploads');
-
-        $Answer_task->status =  $imagePath;
-        $Answer_task->file = $request->name;        $Answer_task->save();
-        
         toastr('Created Successfully!', 'success');
 
-        return redirect()->route('category.index');
+        return redirect()->route('answer-tasks.index');
     }
 
     /**
@@ -86,9 +82,17 @@ class AnswerTaskController extends Controller
      * @param  \App\Models\Answer_task  $answer_task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Answer_task $answer_task)
+    public function update(Request $request, Answer_task $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        
+        $data = $request->except(['_token', '_method']);
+
+        Answer_task::where('id', $id)->update($data);
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -97,8 +101,9 @@ class AnswerTaskController extends Controller
      * @param  \App\Models\Answer_task  $answer_task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Answer_task $answer_task)
+    public function destroy($id)
     {
-        //
+        Answer_task::destroy($id);
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

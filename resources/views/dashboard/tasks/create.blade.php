@@ -34,7 +34,7 @@
         @endforeach
         
 
-        @foreach ($Technologies as $Technology )
+        @foreach ($Technologies as $item )
            <div class="form-group">
             <label for="technology">Course Technology:</label>
             <select name="technology_id" class="form-control" id="technology">

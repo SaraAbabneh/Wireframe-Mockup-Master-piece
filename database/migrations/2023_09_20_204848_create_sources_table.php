@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('Admin_id')->unsigned();
             $table->foreign('Admin_id')->references('id')->on('admins');
-            $table->bigInteger('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->bigInteger('technology_id')->unsigned();
+            $table->foreign('technology_id')->references('id')->on('_technologies');
             $table->string('Title');
             $table->mediumText('source 1');
             $table->mediumText('source 2');

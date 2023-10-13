@@ -4,6 +4,10 @@
 
 
 @section('css')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('title_page1')
@@ -24,6 +28,19 @@
         <input type="hidden" name="admin_id" value="{{ auth()->admin->id }}" />
         {{-- sara --}}
 
+
+
+        @foreach ($Typies as $item)
+        <div class="form-group">
+          <label for="task_type">Course Type:</label>
+          <select name="type_id" class="form-control" id="task_type">
+              <option value="{{$item->id}}">{{$item->task_type}}</option>
+          </select>
+      </div> {{-- sara --}}  
+      @endforeach
+
+      
+
         <div class="form-group">
             <label for="Titel"> Report Titel:</label>
             <input type="text" name="Titel" class="form-control" id="Titel" placeholder="Enter Report Titel">
@@ -32,11 +49,14 @@
             @enderror
 
         </div>
-        
+
         <div class="form-group">
             <label for="file">Report File:</label>
-            <input type="file" name="file" class="form-control" id="file"
-                @error('file') is-invalid @enderror required >
+            <textarea name="file" class="form-control summernote" id="file" required></textarea>
+
+            @error('file')
+                is-invalid
+            @enderror required >
             @error('file')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -53,5 +73,9 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+    </script>
 @endsection

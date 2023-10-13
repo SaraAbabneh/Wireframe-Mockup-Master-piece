@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,7 +16,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $Tasks = Task::all();
+        // dd($Tasks);
+        return view('dashboard.tasks.index', compact('Tasks'));
     }
 
     /**
@@ -24,7 +28,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $Technologies=Technology::all();
+        $Typies=Type::all();
+        return view('dashboard.tasks.create',compact('Technologies','Typies'));
+
     }
 
     /**
@@ -35,7 +42,18 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'Description' => 'required',
+            'Titel' => 'required',
+            'technology_id' => 'required',
+            'admin_id' => 'required',
+            'type_id' => 'required',
+            'end_at' => 'required|date|after:start_at',
+            'start_at' => 'required|date',
+        ]);
+        Task::create($request->all());
+
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
     /**
@@ -57,7 +75,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $Technologies=Technology::all();
+        $Typies=Type::all();
+        return view('dashboard.tasks.edit',compact('Technologies','Typies'));
     }
 
     /**
@@ -67,9 +87,23 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task , $id)
     {
-        //
+       
+        $request->validate([
+            'Description' => 'required',
+            'Titel' => 'required',
+            'technology_id' => 'required',
+            'admin_id' => 'required',
+            'type_id' => 'required',
+            'end_at' => 'required|date|after:start_at',
+            'start_at' => 'required|date',
+        ]);
+
+        $Task = Task::findOrFail($id);
+        $Task->update($request->all());
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
@@ -78,8 +112,11 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task , $id)
     {
-        //
+        $Task = Task::findOrFail($id);
+        $Task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 }

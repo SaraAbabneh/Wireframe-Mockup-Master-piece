@@ -21,18 +21,18 @@
             <h2>Edit Course_type Information</h2>
 
 
-            <form action="{{ route('courses_type.update', $courses_type->id) }}" method="POST">
+            <form action="{{ route('courses_type.update', $Courses_type->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
                     <label for="task_type">Course Type:</label>
                     <select name="task_type" class="form-control" id="task_type">
-                        <option value="daily_task">Daily Task</option>
-                        <option value="project">Project</option>
-                        <option value="masterpiece">Masterpiece</option>
-                        <option value="correct_path">Correct Path</option>
-                        <option value="Report">Report</option>
+                        @foreach ($Courses_type as $item)
+                            
+                        <option value="{{$item->id}}">{{$item->task_type}}</option>
+                        @endforeach
+                        
                     </select>
                 </div>
         
