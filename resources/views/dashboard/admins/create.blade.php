@@ -18,7 +18,7 @@
 
 
     <form method="POST" style="width: 80%;margin: 50px auto" action="{{ route('admins.store') }}"
-        enctype="multipart/form-data">>
+        enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="First_name"> First_name:</label>
@@ -55,22 +55,33 @@
         </div>
 
         <div class="form-group">
-            <input type="radio" name="Gender" value="Femail">
-            <input type="radio" name="Gender" value="Mail">
+            <label>Gender:</label>
+            <div>
+                <input type="radio" id="female" name="Gender" value="Female">
+                <label for="female">Female</label>
+            </div>
+
+            <div>
+                <input type="radio" id="male" name="Gender" value="Male">
+                <label for="male">Male</label>
+            </div>
             @error('Gender')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
-
         <div class="form-group">
-            <label for="Date_of_birth"> Date_of_birth:</label>
+            <label for="Date_of_birth">Date_of_birth:</label>
+            @php
+                $currentDate = now()->format('Y-m-d'); // Get the current date in 'YYYY-MM-DD' format
+            @endphp
             <input type="date" name="Date_of_birth" class="form-control" id="Date_of_birth"
-                placeholder="Enter admin Date_of_birth ">
+                placeholder="Enter admin Date_of_birth" max="{{ $currentDate }}">
             @error('Date_of_birth')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
+
 
         <div class="form-group">
             <label for="position">Position:</label>
@@ -100,7 +111,6 @@
             @error('linkedin')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
-
         </div>
 
         <br>

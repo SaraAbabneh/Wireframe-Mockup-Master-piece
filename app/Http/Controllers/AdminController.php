@@ -47,21 +47,47 @@ class AdminController extends Controller
         $request->validate([
             'First_name' => 'required|string|max:255',
             'Last_name' => 'required|string|max:255',
-            'Email' => 'required|email|unique:admin,email',
-            // Corrected uniqueness check
+            'Email' => 'required|email|unique:admin',
             'Phone' => 'required|string|unique:admin|max:15',
             'Gender' => 'required|in:Male,Female',
             'Date_of_birth' => 'required|date|date_greater_than_today',
             'position' => 'required|string|max:255',
             'linkedin' => 'url|nullable',
+            'Role' => 'required',
             'img' => 'image|mimes:jpeg,png,gif|max:2048',
             // Assuming 'img' is an image upload field
         ]);
 
-        Admin::create($request->all());
+        // Define a variable to store the role value
+        $role = 2; // Default to 'Other' role
+
+        // Check the selected position and set the role accordingly
+        if ($request->position == 'manager') {
+            $role = 0;
+        } elseif ($request->position == 'technical') {
+            $role = 1;
+        }
+
+        dd('request',$request);
+
+        // Create the admin record with the role value
+        $admin = Admin::create([
+            'First_name' => $request->First_name,
+            'Last_name' => $request->Last_name,
+            'Email' => $request->Email,
+            'Phone' => $request->Phone,
+            'Gender' => $request->Gender,
+            'Date_of_birth' => $request->Date_of_birth,
+            'position' => $request->position,
+            'linkedin' => $request->linkedin,
+            'Role' => $role,
+            // Assign the determined role value
+            'img' => $request->img,
+        ]);
 
         return redirect()->route('admins.index')->with('success', 'Admin created successfully.');
     }
+
 
 
     /**
