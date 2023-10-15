@@ -5,7 +5,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 @endsection
@@ -33,23 +34,24 @@
                         @endif
                     </div>
                     <div class="card">
-                        @admin()
+                        @if (Auth::guard('Admin'))
+
                             <div class="card-header">
                                 <!-- Add a link to create a new user -->
                                 <a class="btn btn-primary btn-sm float-left" href="{{ route('tasks.create') }}">
                                     <i class="fas fa-th nav-icon"></i> Add New Task
                                 </a>
                             </div>
-                        @endadmin
+                        @endif
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th> #</th>
-                                        <th> Task Titel</th>
-                                        <th> Task Technology</th>
-                                        <th> Task Description</th>
+                                        <th> Titel</th>
+                                        <th> Technology</th>
+                                        <th> Description</th>
                                         <th> Start at</th>
                                         <th> End at</th>
                                         <th> Action</th>
@@ -79,7 +81,8 @@
                                                     </a>
                                                 </div>
 
-                                                @admin()
+                                                @if (Auth::guard('Admin'))
+
                                                     @if (\Carbon\Carbon::now()->between($item->start_at, $item->end_at))
                                                         <div style="margin-bottom: 5px; width: 100px;">
                                                             <!-- Adjust the width as needed -->
@@ -106,11 +109,13 @@
                                                         </div>
                                                     @endif
                                                 </td>
-                                            @endadmin
+                                            @endif
 
 
 
-                                            @student()
+                                            @if (Auth::guard('Student'))
+                                            
+
                                                 @if (\Carbon\Carbon::now()->between($item->start_at, $item->end_at))
                                                     <td class="project-actions">
                                                         <div style="margin-bottom: 5px; width: 100px;">
@@ -123,7 +128,8 @@
                                                         </div>
                                                     </td>
                                                 @endif
-                                            @endstudent
+                                            @endif
+
 
 
 
@@ -169,11 +175,12 @@
 
 @section('scripts')
     {{-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
     {{-- <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script> --}}
     <script type="text/javascript"
@@ -201,33 +208,33 @@
     <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 
     <script>
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
+                "lengthChange": true,
+                "autoWidth": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
-                "lengthChange": false,
-                "searching": false,
+                "lengthChange": true,
+                "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
             });
         });

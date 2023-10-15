@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Models\Task;
 
 class ReportController extends Controller
 {
@@ -16,8 +17,20 @@ class ReportController extends Controller
     {
         $Report = Report::get();
         // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.Report.index', compact('Report','Task','Report'));
+    }
+
+
+    public function sidebar($admin_id)
+    {
+        $Report = Report::where(('Admin_id'==$admin_id))->get();
+        // dd($Report);
         return view('dashboard.Report.index', compact('Report'));
     }
+
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Answer_task;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Report;
+use App\Models\Task;
 
 
 class AnswerTaskController extends Controller
@@ -18,7 +20,10 @@ class AnswerTaskController extends Controller
     {
         $Students = Student::get();
         $Answer = Answer_task::get();
-        return view('dashboard.answer-tasks.index', compact('Students', 'Answer'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.answer-tasks.index', compact('Students', 'Answer','Task','Report'));
     }
 
     /**

@@ -48,7 +48,8 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-        @endstudent
+        @endif
+
 
         <br>
         <input type="submit" value="Add Answer" class="btn btn-success"><br>

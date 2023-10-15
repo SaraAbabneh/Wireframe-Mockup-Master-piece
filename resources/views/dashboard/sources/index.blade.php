@@ -5,7 +5,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 @endsection
@@ -34,14 +35,15 @@
                     </div>
 
                     <div class="card">
-                        @admin()
+                        @if (Auth::guard('Admin'))
+
                             <div class="card-header">
                                 <!-- Add a link to create a new user -->
                                 <a class="btn btn-primary btn-sm float-left" href="{{ route('sources.create') }}">
                                     <i class="fas fa-th nav-icon"></i> Add New Task
                                 </a>
                             </div>
-                        @endadmin
+                        @endif
 
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -70,7 +72,8 @@
 
 
                                             <td class="project-actions">
-                                                @admin()
+                                                @if (Auth::guard('Admin'))
+
                                                     <div style="margin-bottom: 5px; width: 100px;">
                                                         <!-- Adjust the width as needed -->
                                                         <a class="btn btn-info btn-sm"
@@ -94,9 +97,10 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                @endadmin
+                                                @endif
 
-                                                @student()
+                                                @if (Auth::guard('Student'))
+
                                                     <div style="margin-bottom: 5px; width: 100px;">
                                                         <!-- Adjust the width as needed -->
                                                         <a class="btn btn-info btn-sm"
@@ -106,7 +110,8 @@
 
                                                         </a>
                                                     </div>
-                                                @endstudent
+                                                @endif
+
                                             </td>
 
                                             @php
@@ -148,11 +153,12 @@
 
 @section('scripts')
     {{-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
     {{-- <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script> --}}
     <script type="text/javascript"
@@ -180,37 +186,37 @@
     <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": true,
+                    "autoWidth": true,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange":true ,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                });
             });
-        });
-    </script>
+        </script>
 
 
 

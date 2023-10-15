@@ -49,7 +49,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th> Cohort Number</th>
+                                           
+                                                <th>Cohort Number</th>
+                                         
+
                                             <th> Start at</th>
                                             <th> End at</th>
                                             <th> Number_students</th>
@@ -69,6 +72,7 @@
                                             @endphp
                                             @foreach ($Cohorts as $item)
                                                 <td>{{ $i }}</td>
+
                                                 <td> Cohort {{ $item->number }}</td>
                                                 <td>{{ $item->start_at }}</td>
                                                 <td>{{ $item->end_at }}</td>
@@ -80,16 +84,23 @@
                                                     <td>{{ $item->number_back_end }}</td>
                                                     <td>{{ $item->number_employment }}</td>
                                                 @endif
-                                                <td class="project-actions">
-                                                    <div style="margin-bottom: 5px; width: 100px;">
-                                                        <!-- Adjust the width as needed -->
-                                                        <a class="btn btn-info btn-sm"
-                                                            href="{{ route('cohorts.edit', $item->id) }}"
-                                                            style="width: 100%;">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            Edit
-                                                        </a>
-                                                    </div>
+
+                                                @if (Auth::guard('Admin'))
+
+                                                    <td class="project-actions">
+                                                        <div style="margin-bottom: 5px; width: 100px;">
+                                                            <!-- Adjust the width as needed -->
+                                                            <a class="btn btn-info btn-sm"
+                                                                href="{{ route('cohorts.edit', $item->id) }}"
+                                                                style="width: 100%;">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                                Edit
+                                                            </a>
+                                                        </div>
+                                                    @endif
+
+
+
 
                                                     <div style="margin-bottom: 5px; width: 100px;">
                                                         <!-- Adjust the width as needed -->
@@ -106,6 +117,7 @@
                                                             </button>
                                                         </form>
                                                     </div>
+
                                                 </td>
 
                                                 @php
@@ -197,17 +209,17 @@
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
+                "lengthChange": true,
+                "autoWidth": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
-                "lengthChange": false,
-                "searching": false,
+                "lengthChange": true,
+                "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
             });
         });

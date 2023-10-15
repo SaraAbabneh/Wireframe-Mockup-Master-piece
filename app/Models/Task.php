@@ -11,6 +11,7 @@ class Task extends Model
     protected $fillable = [
         'admin_id',
         'type_id',
+        'technology_id',
         'title',
         'description'
     ];
@@ -26,5 +27,11 @@ class Task extends Model
     {
         return $this->hasMany(AnswerTask::class, 'task_id', 'id');
     }
+
+    public function Task()
+    {
+        return $this->belongsTo(Technology::class, 'technology_id', 'id');
+    }
+    
     
 }

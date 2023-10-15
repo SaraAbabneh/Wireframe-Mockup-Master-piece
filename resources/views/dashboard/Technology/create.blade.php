@@ -1,4 +1,5 @@
-@admin()
+@if (Auth::guard('Admin'))
+
     @extends('dashboard.dashboard_layouts.master')
 
     @section('title', 'Create New Technology')
@@ -69,4 +70,4 @@
     @section('scripts')
 
 @endsection
-@endadmin
+@endif

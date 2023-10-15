@@ -25,7 +25,8 @@
             <input type="hidden" name="student_id" value="{{ auth()->student->id }}" />
 
 
-            @admin
+            @if (Auth::guard('Admin'))
+
                 <div class="form-group">
 
                     <input type="radio" name="status" value="Pass" disabled>
@@ -35,7 +36,7 @@
                     @enderror
 
                 </div>
-            @endadmin
+            @endif
             {{-- sara --}}
 
             @student
@@ -54,7 +55,8 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-            @endstudent
+            @endif
+
 
             <br>
             <button type="submit" class="btn btn-primary">Update</button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\Type;
+use App\Models\Report;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,17 @@ class TaskController extends Controller
     {
         $Tasks = Task::all();
         // dd($Tasks);
-        return view('dashboard.tasks.index', compact('Tasks'));
+        $Report = Report::get();
+        // dd($Report);
+
+        return view('dashboard.tasks.index', compact('Tasks','Task','Report'));
+    }
+
+    public function sidebar($admin_id,$type_id)
+    {
+        $Task = Task::where(('admin-id'==$admin_id)&&('type-id '==$type_id))->get();
+        // dd($Tasks);
+        return view('dashboard.tasks.index','Task');
     }
 
     /**

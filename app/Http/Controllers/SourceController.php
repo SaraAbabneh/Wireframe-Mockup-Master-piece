@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Source;
 use Illuminate\Http\Request;
 use App\Models\Technology;
+use App\Models\Task;
+use App\Models\Report;
 
 class SourceController extends Controller
 {
@@ -17,7 +19,10 @@ class SourceController extends Controller
     {
         $Sources = Source::get();
         // dd($admins);
-        return view('dashboard.sources.index', compact('Sources'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.sources.index', compact('Sources','Task','Report'));
     }
 
 

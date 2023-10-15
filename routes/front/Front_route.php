@@ -9,7 +9,6 @@ Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/About', [PagesController::class, 'about'])->name('about');
 Route::get('Cohort/{id}', [PagesController::class, 'Cohort'])->name('Cohort');
 Route::get('Portfolio', [PagesController::class, 'Portfolio'])->name('Portfolio');
-// Route::get('Contact', [PagesController::class, 'Contact'])->name('Contact');
 Route::get('Contact/{email}', [PagesController::class, 'ContactEmail'])->name('Contact.email');
 Route::get('Our graduate', [PagesController::class, 'Ourgraduate'])->name('Ourgraduate');
 Route::get('Team', [PagesController::class, 'Team'])->name('Team');

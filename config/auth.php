@@ -40,8 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'Admin' => [
+            'driver' => 'session',
+            'provider' => 'Admins',
+        ],
+        'Student' => [
+            'driver' => 'session',
+            'provider' => 'Students',
+        ],
     ],
 
+    // sara
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -63,6 +72,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'Admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'Students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
         ],
 
         // 'users' => [
@@ -89,6 +106,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'Admins' => [
+            'provider' => 'Admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-
+use App\Models\Task;
+use App\Models\Report;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,24 @@ class StudentController extends Controller
     public function index()
     {
         $Student = Student::all();
-        return view('dashboard.students.index', compact('Student'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.students.index', compact('Student','Task','Report'));
     }
+
+
+
+
+    // public function sidebar()
+    // {
+    //     $Student = Student::all();
+    //     $Report = Report::get();
+    //     // dd($Report);
+    //     $Task = Task::get();
+    //     return view('dashboard.students.index', compact('Student','Task','Report'));
+    // }
+
 
     /**
      * Show the form for creating a new resource.

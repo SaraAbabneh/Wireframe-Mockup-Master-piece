@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-
 use App\Models\Admin;
+use App\Models\Report;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,7 +21,10 @@ class AdminController extends Controller
     public function index()
     {
         $Admin = Admin::all();
-        return view('dashboard.admins.index', compact('Admin'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.admins.index', compact('Admin','Task','Report'));
     }
 
     /**
@@ -39,55 +45,60 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('request',$request->First_name);
 
-        Validator::extend('date_greater_than_today', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('date_less_than_today', function ($attribute, $value, $parameters, $validator) {
             $date = Carbon::parse($value);
-            return $date->greaterThan(Carbon::now());
+            return $date->lessThan(Carbon::now());
         });
 
         $request->validate([
             'First_name' => 'required|string|max:255',
             'Last_name' => 'required|string|max:255',
-            'Email' => 'required|email|unique:admin',
-            'Phone' => 'required|string|unique:admin|max:15',
+            'Email' => 'required|email|unique:admins',
+            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$/', 'confirmed'],
+            'Phone' => ['required', 'numeric', 'unique:admins', 'regex:/^07\d{8}$/'],
             'Gender' => 'required|in:Male,Female',
-            'Date_of_birth' => 'required|date|date_greater_than_today',
-            'position' => 'required|string|max:255',
-            'linkedin' => 'url|nullable',
-            'Role' => 'required',
-            'img' => 'image|mimes:jpeg,png,gif|max:2048',
-            // Assuming 'img' is an image upload field
+            'Date_of_birth' => 'required|date|date_less_than_today',
+            'position' => 'required',
+            'linkedin' => 'url|required|unique:admins',
+            'img' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
         ]);
 
-        // Define a variable to store the role value
+        // Determine the role based on the selected position
         $role = 2; // Default to 'Other' role
 
-        // Check the selected position and set the role accordingly
         if ($request->position == 'manager') {
             $role = 0;
         } elseif ($request->position == 'technical') {
             $role = 1;
         }
 
+        $admin = new Admin;
+        $admin->First_name = $request->input('First_name');
+        $admin->Last_name = $request->input('Last_name');
+        $admin->Email = $request->input('Email');
+        $admin->password = $request->input('password');
+        $admin->Phone = $request->input('Phone');
+        $admin->Gender = $request->input('Gender');
+        $admin->Date_of_birth = $request->input('Date_of_birth');
+        $admin->position = $request->input('position');
+        $admin->linkedin = $request->input('linkedin');
+        $admin->Role = $role;
 
-        // Create the admin record with the role value
-        $admin = Admin::create([
-            'First_name' => $request->First_name,
-            'Last_name' => $request->Last_name,
-            'Email' => $request->Email,
-            'Phone' => $request->Phone,
-            'Gender' => $request->Gender,
-            'Date_of_birth' => $request->Date_of_birth,
-            'position' => $request->position,
-            'linkedin' => $request->linkedin,
-            'Role' => $role,
-            // Assign the determined role value
-            'img' => $request->img,
-        ]);
+        // Handle image upload
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('backend\images');
+            $admin->img = $imagePath;
+  
+        }
+
+        dd('admin finall', $admin->img);
+
+        $admin->save();
 
         return redirect()->route('admins.index')->with('success', 'Admin created successfully.');
     }
+
 
 
 
@@ -108,7 +119,7 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $Admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $Admin, $id)
+    public function edit($id)
     {
         $Admin = Admin::findOrFail($id);
 
@@ -122,31 +133,79 @@ class AdminController extends Controller
      * @param  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $Admin, $id)
+    public function update(Request $request, $id)
     {
-        Validator::extend('date_greater_than_today', function ($attribute, $value, $parameters, $validator) {
+
+        // Define custom validation rule
+        Validator::extend('date_less_than_today', function ($attribute, $value, $parameters, $validator) {
             $date = Carbon::parse($value);
-            return $date->greaterThan(Carbon::now());
+            return $date->lessThan(Carbon::now());
         });
 
+
         $request->validate([
-            'First_name' => 'required|string|max:255',
-            'Last_name' => 'required|string|max:255',
-            'Email' => 'required|email|unique:admin,email',
-            // Corrected uniqueness check
-            'Phone' => 'required|string|unique:admin|max:15',
+            'First_name' => 'required|alpha|max:255',
+            'Last_name' => 'required|alpha|max:255',
+            'Email' => 'required|email|unique:admins,Email,' . $id,
+            'password' => ['string', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$/'],
+            'Phone' => [
+                'required',
+                'numeric',
+                'unique:admins,Phone,' . $id,
+                'regex:/^07\d{8}$/'
+            ],
             'Gender' => 'required|in:Male,Female',
-            'Date_of_birth' => 'required|date|date_greater_than_today',
-            'position' => 'required|string|max:255',
-            'linkedin' => 'url|nullable',
-            'img' => 'image|mimes:jpeg,png,gif|max:2048',
-            // Assuming 'img' is an image upload field
+            'Date_of_birth' => 'required|date|date_less_than_today',
+            'position' => 'required',
+            'linkedin' => 'url|required|unique:admins,linkedin,' . $id,
+
+            'img' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
         ]);
 
-        Admin::where('id', $id)->update($request->all());
+        $admin = Admin::find($id);
 
-        return redirect()->route('admins.index')->with('success', 'Admins updated successfully.');
+        if (!$admin) {
+            return redirect()->route('admins.index')->with('error', 'Admin not found.');
+        }
+        // Define a variable to store the role value
+        $role = 2; // Default to 'Other' role
+
+        // Check the selected position and set the role accordingly
+        if ($request->position == 'manager') {
+            $role = 0;
+        } elseif ($request->position == 'technical') {
+            $role = 1;
+        }
+
+        // Update the fields based on the request
+        $admin->First_name = $request->input('First_name');
+        $admin->Last_name = $request->input('Last_name');
+        $admin->Email = $request->input('Email');
+        $admin->Phone = $request->input('Phone');
+        $admin->Gender = $request->input('Gender');
+        $admin->Date_of_birth = $request->input('Date_of_birth');
+        $admin->position = $request->input('position');
+        $admin->linkedin = $request->input('linkedin');
+        $admin->password = $request->input('password');
+        $admin->Role = $role;
+
+
+
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('backend\images');
+            $admin->img = $imagePath;
+
+        }
+
+        dd('admin finall', $admin->img);
+
+
+        $admin->save();
+
+        return redirect()->route('admins.index')->with('success', 'Admin updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

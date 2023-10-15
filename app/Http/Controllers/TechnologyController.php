@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use App\Models\Task;
+use App\Models\Report;
 
 class TechnologyController extends Controller
 {
@@ -15,7 +17,10 @@ class TechnologyController extends Controller
     {
         $Map = Technology::all();
         // dd($admins);
-        return view('dashboard.Technology.index', compact('Map'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.Technology.index', compact('Map','Task','Report'));
     }
 
     /**

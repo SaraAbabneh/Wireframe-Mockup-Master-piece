@@ -15,9 +15,13 @@ class Technology extends Model
         'end_at',
     ];
 
-    public function Technology()
+    public function Source()
 {
     return $this->hasMany(Source::class, 'technology_id', 'id');
+}
+    public function Task()
+{
+    return $this->hasMany(Task::class, 'technology_id', 'id');
 }
 
 }

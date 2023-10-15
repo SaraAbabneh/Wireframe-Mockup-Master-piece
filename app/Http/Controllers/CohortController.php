@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Cohort;
+use App\Models\Task;
+use App\Models\Report;
 
 class CohortController extends Controller
 {
@@ -15,8 +17,12 @@ class CohortController extends Controller
      */
     public function index()
     {
-        $Cohorts = Cohort::get();
-        return view('dashboard.cohorts.index', compact('Cohorts'));
+        $Cohorts = Cohort::all();
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        // dd('in cohortControler ',$Cohorts);
+        return view('dashboard.cohorts.index', compact('Cohorts','Task','Report'));
 
 
     }

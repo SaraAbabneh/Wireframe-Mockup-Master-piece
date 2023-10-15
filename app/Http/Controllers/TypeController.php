@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Models\Task;
+use App\Models\Report;
 
 class TypeController extends Controller
 {
@@ -15,7 +17,10 @@ class TypeController extends Controller
     public function index()
     {
         $Courses_type = Type::all();
-        return view('dashboard.types.index', compact('Courses_type'));
+        $Report = Report::get();
+        // dd($Report);
+        $Task = Task::get();
+        return view('dashboard.types.index', compact('Courses_type','Task','Report'));
     }
 
     /**

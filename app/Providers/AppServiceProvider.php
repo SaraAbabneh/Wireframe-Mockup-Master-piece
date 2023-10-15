@@ -25,14 +25,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        Blade::if('admin', function () {
-            return auth()->guard('admin')->check();
-        });
-        //sara
-        Blade::if('student', function () {
-            return auth()->guard('student')->check();
-        });
-        //sara
+        // Blade::if('Admin', function () {
+        //     return auth()->guard('Admin')->check();
+        // });
+        // //sara
+        // Blade::if('student', function () {
+        //     return auth()->guard('student')->check();
+        // });
+        // //sara
 
     }
 }

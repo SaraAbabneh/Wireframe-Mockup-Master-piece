@@ -5,7 +5,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 @endsection
@@ -35,11 +36,13 @@
 
                         <div class="card-header">
                             <!-- Add a link to create a new user -->
-                            @student()
+                            @if (Auth::guard('Student'))
+
                                 <a class="btn btn-primary btn-sm float-left" href="{{ route('answer.create') }}">
                                     <i class="fas fa-user-shield nav-icon"></i> Add Answer
                                 </a>
-                            @endstudent
+                            @endif
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -47,9 +50,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        @admin()
+                                        @if (Auth::guard('Admin'))
                                             <th>Student Name</th>
-                                        @endadmin
+                                        @endif
                                         <th> Dowenload File</th>
                                         <th>Comment</th>
                                         <th>Status</th>
@@ -63,13 +66,13 @@
                                     @foreach ($Answer as $item)
                                         <tr>
                                             <td>{{ $i }}</td>
-                                            @admin()
+                                            @if (Auth::guard('Admin'))
                                                 @foreach ($Students as $Student)
                                                     @if ($item->student_id == $Student->student_id)
                                                         <td>{{ $Student->First_name . ' ' . $Student->Last_name }}</td>
                                                     @endif
                                                 @endforeach
-                                            @endadmin
+                                            @endif
                                             <td>{{ $item->File }}</td>
                                             <td>{{ $item->Comment }}</td>
                                             @if ($item->Status != null)
@@ -79,24 +82,26 @@
                                             @endif
 
                                             <td class="project-actions">
-                                                {{-- @student() --}}
-                                                    <a class="btn btn-info btn-sm"
-                                                        href="{{ route('answer.edit', $item->id) }}">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                {{-- @if (Auth::guard('Student'))
+ --}}
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('answer.edit', $item->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
 
-                                                    </a>
+                                                </a>
 
-                                                    <form action="{{ route('answer.destroy', $item->id) }}" method="POST"
-                                                        style="display: inline;">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Are you sure you want to delete this Admin?')">
-                                                            <i class="fas fa-trash"></i> <!-- Add the delete icon here -->
+                                                <form action="{{ route('answer.destroy', $item->id) }}" method="POST"
+                                                    style="display: inline;">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('Are you sure you want to delete this Admin?')">
+                                                        <i class="fas fa-trash"></i> <!-- Add the delete icon here -->
 
-                                                        </button>
-                                                    </form>
-                                                @endstudent
+                                                    </button>
+                                                </form>
+                                                @endif
+
 
                                                 {{-- <a class="btn btn-info btn-sm"
                                                     href="{{ route('answer.edit', $item->id) }}">
@@ -104,7 +109,7 @@
                                                     Add Rating
                                                 </a> --}}
                                                 {{-- sara --}}
-                                                @admin()
+                                                @if (Auth::guard('Admin'))
                                                     <form action="{{ route('answer.update', auth()->user()->id) }}"
                                                         method="POST" enctype="multipart/form-data">
                                                         @csrf
@@ -128,7 +133,7 @@
                                                         <br>
                                                         <button type="submit" class="btn btn-primary">Update</button>
                                                     </form>
-                                                @endadmin
+                                                @endif
 
 
                                             </td>
@@ -171,11 +176,12 @@
 
 @section('scripts')
     {{-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
     {{-- <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script> --}}
     <script type="text/javascript"
@@ -203,33 +209,33 @@
     <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 
     {{-- <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
-    <script type="text/javascript" src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}">
-    </script>
+    <script type="text/javascript"
+        src="{{ URL::asset('backend/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 
     <script>
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
+                "lengthChange": true,
+                "autoWidth": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
-                "lengthChange": false,
-                "searching": false,
+                "lengthChange": true,
+                "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
             });
         });

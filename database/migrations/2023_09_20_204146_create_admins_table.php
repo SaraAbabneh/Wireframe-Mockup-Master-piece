@@ -25,9 +25,14 @@ return new class extends Migration {
             $table->string('position');
             $table->string('img')->default('frontend/img/default-profile-icon.jpg');
             $table->tinyInteger('Role');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
+
+        
     }
+
 
     /**
      * Reverse the migrations.

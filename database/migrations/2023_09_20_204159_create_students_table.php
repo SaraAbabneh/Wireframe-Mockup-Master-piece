@@ -30,8 +30,11 @@ return new class extends Migration
             $table->bigInteger('cohort_id')->unsigned();
 
             $table->foreign('cohort_id')->references('number')->on('cohorts')->onDelete('cascade');
-            
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
+    
         });
     }
 

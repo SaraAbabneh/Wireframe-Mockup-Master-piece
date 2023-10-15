@@ -1,4 +1,5 @@
-@admin()
+@if (Auth::guard('Admin'))
+
     @extends('dashboard.dashboard_layouts.master')
 
     @section('title', 'Edit Task')
@@ -28,29 +29,29 @@
                 <input type="hidden" name="admin_id" value="{{ auth()->admin->id }}" />
                 {{-- <input type="hidden" name="admin_id" value="1" /> --}}
                 @foreach ($Typies as $item)
-                  <div class="form-group">
-                    <label for="task_type">Course Type:</label>
-                    <select name="type_id" class="form-control" id="task_type">
-                        <option value="{{$item->id}}">{{$item->task_type}}</option>
-                    </select>
-                </div> {{-- sara --}}  
+                    <div class="form-group">
+                        <label for="task_type">Course Type:</label>
+                        <select name="type_id" class="form-control" id="task_type">
+                            <option value="{{ $item->id }}">{{ $item->task_type }}</option>
+                        </select>
+                    </div> {{-- sara --}}
                 @endforeach
-                
-        
-                @foreach ($Technologies as $item )
-                   <div class="form-group">
-                    <label for="technology">Course Technology:</label>
-                    <select name="technology_id" class="form-control" id="technology">
-                        <option value="{{$item->id}}">{{$item->Technology}}</option>
-                    </select>
-                </div> {{-- sara --}} 
+
+
+                @foreach ($Technologies as $item)
+                    <div class="form-group">
+                        <label for="technology">Course Technology:</label>
+                        <select name="technology_id" class="form-control" id="technology">
+                            <option value="{{ $item->id }}">{{ $item->Technology }}</option>
+                        </select>
+                    </div> {{-- sara --}}
                 @endforeach
-                
+
 
                 <div class="form-group">
                     <label for="Titel">Task Titel:</label>
-                    <input type="text" name="Titel" class="form-control" id="Titel" @error('subject') is-invalid @enderror
-                        required value="{{ old('Titel', $Tasks->Titel) }}">
+                    <input type="text" name="Titel" class="form-control" id="Titel"
+                        @error('subject') is-invalid @enderror required value="{{ old('Titel', $Tasks->Titel) }}">
                     @error('Titel')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -120,4 +121,4 @@
     @section('scripts')
 
     @endsection
-@endadmin
+@endif
